@@ -38,6 +38,6 @@ const useFetch = () => {
         page, 
         setPage,
     };
-}
+};
 
 export { useFetch };
