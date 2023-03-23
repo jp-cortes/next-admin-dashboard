@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 
 export default function Pagination({
     offSet, 
@@ -56,7 +55,7 @@ useEffect(() => {
         of {' '}
         <span className="font-medium">{allResults}</span>
         {' '}
-        results
+        Products
       </p>
     </div>
     <div>

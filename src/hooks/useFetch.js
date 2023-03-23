@@ -12,7 +12,7 @@ const useFetch = () => {
 
 
     async function fetchAllData() {
-        const response = await axios(endPoints.products.getProducts(0, 0));
+        const response = await axios(endPoints.products.allProducts);
         setAllData(response.data);
     }
     async function fetchData() {

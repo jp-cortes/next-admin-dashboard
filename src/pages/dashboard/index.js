@@ -1,21 +1,20 @@
 import Pagination from "@components/Pagination";
 import { useFetch } from "@hooks/useFetch";
 import { Chart } from "@common/Chart";
+import Link from "next/link";
 
 
 
   export default function Dashboard() {
-  const allProducts = useFetch(); //  allProducts.allData.length;
-  const amountOfProducts = allProducts?.allData.slice(0, 100);
- 
-  const products = useFetch();
+  const { data, allData, PRODUCTS_LIMIT, offSet, setOffSet, page, setPage } = useFetch(); 
+  const amountOfProducts = allData.length;
 
- const categoryNames = products?.data?.map((product) => product.category);
+ const categoryNames = data?.map((product) => product.category);
  const categoryCount = categoryNames?.map((category) => category.name);
 
  const countOcurrences = (array) => array.reduce((prev, current) => ((prev[current] = ++prev[current] || 1), prev), {});
 
-const data = {
+const chartData = {
   datasets: [
     {
       label: 'Categories',
@@ -28,7 +27,7 @@ const data = {
  
     return (
       <>
-      <Chart className='mb-8 mt-2' chartData={data}/>
+      <Chart className='mb-8 mt-2' chartData={chartData}/>
         <div className="flex flex-col mt-20">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -57,7 +56,7 @@ const data = {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {products?.data?.map((product) => (
+                    {data?.map((product) => (
                       <tr key={`Product-item-${product.id}`}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
@@ -77,22 +76,22 @@ const data = {
                           <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">$ {product.price}</span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href="/edit" className="text-indigo-600 hover:text-indigo-900">
+                        {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <Link href="/edit" className="text-indigo-600 hover:text-indigo-900">
                             Edit
-                          </a>
-                        </td>
+                          </Link>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
                 </table>
                     <Pagination
-                    offSet={products?.offSet}
-                    setOffSet={products?.setOffSet}
-                    PRODUCTS_LIMIT={products?.PRODUCTS_LIMIT}
-                    setPage={products?.setPage}
-                    page={products?.page}
-                    allResults={amountOfProducts?.length}
+                    offSet={offSet}
+                    setOffSet={setOffSet}
+                    PRODUCTS_LIMIT={PRODUCTS_LIMIT}
+                    setPage={setPage}
+                    page={page}
+                    allResults={amountOfProducts}
                     />
               </div>
             </div>

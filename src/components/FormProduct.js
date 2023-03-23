@@ -1,5 +1,7 @@
 import { useRef } from "react";
-import { addProduct } from "@services/api/product";
+import { addProduct, updateProduct } from "@services/api/product";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 function checkData(data) {  // REGEX
     let pass = true;
@@ -20,11 +22,12 @@ function checkData(data) {  // REGEX
     return pass;
   }
 
-export default function FormProduct({ setOpen }) {
+export default function FormProduct({ setAlert, setOpen, product }) {
     const formRef = useRef(null);
-
+    const router = useRouter();
+    
     const handleSubmit = (event) => {
-        event.preventDefault();
+      event.preventDefault();
         const formData = new FormData(formRef.current);
 
         const data = {
@@ -34,12 +37,34 @@ export default function FormProduct({ setOpen }) {
             categoryId: formData.get('category'),
             images: [formData.get('images').name]
         };
-        const dataIsOkay = checkData(data);
-        if(dataIsOkay){
-            addProduct(data).then((response) => console.log(response))
 
-        }
+        const dataIsOkay = checkData(data);
+
+      if(product && dataIsOkay) {
+        updateProduct(product.id, data).then(() => {
+          router.push('dashboard/products')
+        })
+      } else if(!product && dataIsOkay){
+        addProduct(data).then(() => {
+        setAlert({
+          active: true,
+          message: 'Product successfully added',
+          type: 'success',
+          autoClose: false,
+        });
         setOpen(false);
+        })
+        .catch((error) => {
+          setAlert({
+            active: true,
+            message: error.message,
+            type: 'error',
+            autoClose: false,
+          })
+        })
+
+    }
+        
     }
     return (
       <form ref={formRef} onSubmit={handleSubmit}>
@@ -54,6 +79,7 @@ export default function FormProduct({ setOpen }) {
                   Title
                 </label>
                 <input
+                defaultValue={product?.title}
                   required
                   type="text"
                   name="title"
@@ -69,6 +95,7 @@ export default function FormProduct({ setOpen }) {
                   Price
                 </label>
                 <input
+                defaultValue={product?.price}
                 min={1}
                   required
                   type="number"
@@ -88,9 +115,12 @@ export default function FormProduct({ setOpen }) {
                   required
                   id="category"
                   name="category"
+                  defaultValue={product?.category}
                   autoComplete="category-name"
                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
+                  
+                  {/* <option value="">--select--</option> */}
                   <option value="1">Clothes</option>
                   <option value="2">Electronics</option>
                   <option value="3">Furniture</option>
@@ -107,6 +137,7 @@ export default function FormProduct({ setOpen }) {
                   Description
                 </label>
                 <textarea
+                defaultValue={product?.description}
                   required
                   name="description"
                   id="description"
@@ -143,6 +174,7 @@ export default function FormProduct({ setOpen }) {
                         >
                           <span>Upload a file</span>
                           <input
+                          defaultValue={product?.images}
                             required
                             id="images"
                             name="images"
@@ -162,12 +194,20 @@ export default function FormProduct({ setOpen }) {
             </div>
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          {product && <Link
+              href="/dashboard/products"
+              className="inline-flex justify-center py-2 px-4 mr-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700"
+            >
+              Cancel
+            </Link>}
+            
             <button
               type="submit"
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Save
             </button>
+            
           </div>
         </div>
       </form>

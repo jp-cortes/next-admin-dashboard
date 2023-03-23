@@ -2,7 +2,8 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, Bars3Icon, XMarkicon } from '@heroicons/react/24/outline';
 import { useAuth } from '@hooks/useAuth';
-
+import Logo from '../assets/images/greenIcon.png'
+import Image from 'next/image';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
@@ -40,7 +41,7 @@ const userData = {
               <div className="flex items-center justify-between h-16">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img className="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow" />
+                    <Image className="h-8 w-8" src={Logo} alt="Workflow" />
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
