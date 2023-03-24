@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext } from "react";
 import axios from 'axios';
 import Cookie from 'js-cookie';
 import endPoints from "services/api";
+import { useRouter } from "next/router";
 
 const AuthContext = createContext()
 
@@ -18,10 +19,11 @@ export const useAuth = () => {
 }
 
 function useProviderAuth() {
+    const router = useRouter();
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
 
-    const signIn = async (email, password) => {
+    const logIn = async (email, password) => {
         const options ={
             headers: {
                 accept: '*/*',
@@ -42,13 +44,21 @@ if(access_token) {
     setUser(user);
 }
 
+}
 
+const logout = () => {
+    Cookie.remove('token');
+    setUser(null);
+    delete axios.defaults.headers.Authorization;
+
+    router.push('/login');
 }
 
 
     return {
         user,
-        signIn,
+        logIn,
+        logout,
         error, 
         setError,
     }

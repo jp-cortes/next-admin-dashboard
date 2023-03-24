@@ -1,7 +1,8 @@
 import Pagination from "@components/Pagination";
 import { useFetch } from "@hooks/useFetch";
 import { Chart } from "@common/Chart";
-import Link from "next/link";
+import MainLayout from "@layout/MainLayout";
+
 
 
 
@@ -27,6 +28,7 @@ const chartData = {
  
     return (
       <>
+      <MainLayout>
       <Chart className='mb-8 mt-2' chartData={chartData}/>
         <div className="flex flex-col mt-20">
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -97,6 +99,7 @@ const chartData = {
             </div>
           </div>
         </div>
+      </MainLayout>
       </>
     );
   }

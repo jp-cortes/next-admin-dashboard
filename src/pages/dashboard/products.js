@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useAlert } from '@hooks/useAlert';
 import { CheckIcon, XCircleIcon } from '@heroicons/react/20/solid';
+import { deleteProduct } from '@services/api/product';
+import MainLayout from '@layout/MainLayout';
+import axios from 'axios';
 import Alert from '@common/Alert';
 import Modal from '@common/Modal';
 import FormProduct from '@components/FormProduct';
 import endPoints from '@services/api';
-import { deleteProduct } from '@services/api/product';
 import Link from 'next/link';
 
 
@@ -25,7 +26,7 @@ useEffect(() => {
   try {
     allProducts();
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 
 }, [alert]);
@@ -44,7 +45,8 @@ const handleDelete = (id) => {
 
   return (
     <>
-    <Alert alert={alert} handleClose={toggleAlert}/>
+   <MainLayout>
+   <Alert alert={alert} handleClose={toggleAlert}/>
     <div className="lg:flex lg:items-center lg:justify-between mb-8">
         <div className="flex-1 min-w-0">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">List of Products</h2>
@@ -133,6 +135,7 @@ const handleDelete = (id) => {
       <Modal title={"Add Product"} open={open} setOpen={setOpen}>
         <FormProduct setOpen={setOpen} setAlert={setAlert}/>
       </Modal>
+   </MainLayout>
     </>
   )
 }
