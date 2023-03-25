@@ -4,6 +4,7 @@ import { LockClosedIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '@hooks/useAuth';
 import Image from 'next/image';
 import Logo from '../assets/images/greenIcon.png'
+import Nav from '@common/Nav';
 
 
 export default function LoginPage() {
@@ -31,6 +32,7 @@ const handleSubmit = (e) => {
 
   return (
     <>
+    <Nav/>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

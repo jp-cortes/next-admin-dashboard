@@ -7,8 +7,8 @@ import MainLayout from "@layout/MainLayout";
 
 
   export default function Dashboard() {
-  const { data, allData, PRODUCTS_LIMIT, offSet, setOffSet, page, setPage } = useFetch(); 
-  const amountOfProducts = allData.length;
+  const { data, PRODUCTS_LIMIT, offSet, setOffSet, page, setPage } = useFetch(); 
+
 
  const categoryNames = data?.map((product) => product.category);
  const categoryCount = categoryNames?.map((category) => category.name);
@@ -34,6 +34,13 @@ const chartData = {
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <Pagination
+                    offSet={offSet}
+                    setOffSet={setOffSet}
+                    PRODUCTS_LIMIT={PRODUCTS_LIMIT}
+                    setPage={setPage}
+                    page={page}
+                    />
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
@@ -87,14 +94,7 @@ const chartData = {
                     ))}
                   </tbody>
                 </table>
-                    <Pagination
-                    offSet={offSet}
-                    setOffSet={setOffSet}
-                    PRODUCTS_LIMIT={PRODUCTS_LIMIT}
-                    setPage={setPage}
-                    page={page}
-                    allResults={amountOfProducts}
-                    />
+               
               </div>
             </div>
           </div>

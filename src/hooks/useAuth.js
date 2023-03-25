@@ -38,12 +38,29 @@ if(access_token) {
     //save a cookie for the token provide  by the server
     Cookie.set('token', token, { expires: 5 });
     //auth the user token
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     const { data: user } = await axios.get(endPoints.auth.profile);
     // console.log(user);
     setUser(user);
 }
 
+}
+const redirect = () => {
+    const token = Cookie.get('token');
+    if(!token) {
+        router.push('/login');
+    }
+}
+
+const reSignIn = async () => {
+  const token = Cookie.get('token');
+    if(token) {
+    axios.defaults.headers.Authorization = `Bearer ${token}`;
+    const { data: user } = await axios.get(endPoints.auth.profile);
+    // console.log(user);
+    setUser(user);
+  }
 }
 
 const logout = () => {
@@ -58,7 +75,9 @@ const logout = () => {
     return {
         user,
         logIn,
+        reSignIn,
         logout,
+        redirect,
         error, 
         setError,
     }

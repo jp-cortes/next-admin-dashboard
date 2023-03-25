@@ -37,7 +37,7 @@ export default function FormProduct({ setAlert, setOpen, product }) {
             categoryId: formData.get('category'),
             images: [formData.get('images').name]
         };
-
+// console.log(data.images)
         const dataIsOkay = checkData(data);
 
       if(product && dataIsOkay) {

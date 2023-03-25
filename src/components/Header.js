@@ -1,19 +1,16 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, Bars3Icon, XMarkicon } from '@heroicons/react/24/outline';
+import { BellIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@hooks/useAuth';
 import { useRouter } from 'next/router';
-import Logo from '../assets/images/greenIcon.png'
 import Image from 'next/image';
+import Link from 'next/link';
+import Logo from '../assets/images/greenIcon.png'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', current: true },
-  { name: 'Productos', href: '/dashboard/products/', current: false },
-  { name: 'Ventas', href: '#', current: false },
-];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
+  { name: 'Products', href: '/dashboard/products/', current: false },
+
 ];
 
 function classNames(...classes) {
@@ -33,6 +30,15 @@ const userData = {
   imageUrl: auth?.user?.avatar,
 };
 
+useEffect(() => {
+  if(!userData.name) {
+    auth.reSignIn();
+  }
+  //with no token the user will be redirected to login page 
+  auth.redirect();
+}, [])
+
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -49,14 +55,14 @@ const userData = {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
-                        <a
+                        <Link
                           key={item.name}
                           href={item.href}
                           className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3 py-2 rounded-md text-sm font-medium')}
                           aria-current={item.current ? 'page' : undefined}
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -103,7 +109,7 @@ const userData = {
                   {/* Mobile menu button */}
                   <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                     <span className="sr-only">Open main menu</span>
-                    {open ? <XMarkicon className="block h-6 w-6" aria-hidden="true" /> : <Bars3Icon className="block h-6 w-6" aria-hidden="true" />}
+                    {open ? <XMarkIcon className="block h-6 w-6" aria-hidden="true" /> : <Bars3Icon className="block h-6 w-6" aria-hidden="true" />}
                   </Disclosure.Button>
                 </div>
               </div>
@@ -141,11 +147,11 @@ const userData = {
                   </button>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
-                  {userNavigation.map((item) => (
-                    <Disclosure.Button key={item.name} as="a" href={item.href} className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700">
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
+                <button
+                        onClick={() => auth.logout()}
+                        className='block px-4 py-2 text-sm text-gray-200'>
+                                  Log Out
+                                </button>
                 </div>
               </div>
             </Disclosure.Panel>

@@ -42,7 +42,6 @@ const handleDelete = (id) => {
   })
 }
 
-
   return (
     <>
    <MainLayout>

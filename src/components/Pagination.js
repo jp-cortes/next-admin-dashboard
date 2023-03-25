@@ -6,9 +6,8 @@ export default function Pagination({
     PRODUCTS_LIMIT,
     page, 
     setPage,
-    allResults
 }) {
-    const PAGES = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const PAGES = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const plusPage = (p) => {        
         if(page !== p) {
             setPage(p);
@@ -22,6 +21,7 @@ const previousPage = () => {
     if(page >= 1) {
         setPage(page - 1);
     }
+
 }
 useEffect(() => {
     setOffSet(PRODUCTS_LIMIT * page);
@@ -52,9 +52,7 @@ useEffect(() => {
         to
         {' '}
         <span className="font-medium">{offSet + 10}</span>{' '}
-        of {' '}
-        <span className="font-medium">{allResults}</span>
-        {' '}
+        
         Products
       </p>
     </div>
@@ -65,7 +63,7 @@ useEffect(() => {
         className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
           
           <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+            <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
           </svg>
           
         </button>}
@@ -75,7 +73,7 @@ useEffect(() => {
         onClick={nextPage}
         className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
           <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+            <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
           </svg>
           
         </button>}
@@ -88,7 +86,7 @@ useEffect(() => {
 const Pages = ({pageNumber, callBack}) => {
     return (
         <button onClick={callBack}
-        class="focus:bg-amber-600 relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ">
+        className="focus:bg-amber-600 relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 ">
             {pageNumber}
             </button>
     )
