@@ -4,10 +4,22 @@ This repository contains a dashboard for an e-commerce site, with user authentic
 # Getting Started
 To get started with this project, follow these steps:
 
-1. Clone this repository to your local machine using git clone https://github.com/jp-cortes/next-admin-dashboar.git
-2. Navigate to the project directory: cd next-admin-dashboard
-3. Install dependencies using npm install
-4. Start the development server using npm run dev
+1. Clone this repository to your local machine using :
+ ```
+git clone https://github.com/jp-cortes/next-admin-dashboar.git
+```
+2. Navigate to the project directory:
+```
+cd next-admin-dashboard
+```
+3. Install dependencies using:
+ ```
+npm install
+```
+4. Start the development server using:
+```
+npm run dev
+```
 
 # Dependencies
 The e-commerce dashboard has the following dependencies:
@@ -17,16 +29,6 @@ The e-commerce dashboard has the following dependencies:
 * Axios
 * Tailwind CSS
 * Cookie
-
-You can install these dependencies using the following commands:
-
-* bash:
-
-Copy code
-
-```
-npm install next react axios tailwindcss
-```
 
 # Features
 The e-commerce dashboard includes the following features:
